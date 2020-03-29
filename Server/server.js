@@ -2,6 +2,7 @@ const express=require("express"); // framework for http routes
 const morgon=require("morgan");//http request logger, middleware , 
 const bodyParser=require("body-parser");// request data reader
 const mongoose=require("mongoose");//mongo db handler, db agent
+const cors=require("cors");//cross origin resource sharing
 
 const config=require("./config");
 
@@ -19,6 +20,7 @@ mongoose.connect(config.database, err=>{
 app.use(bodyParser.json()); //reading data with json format
 app.use(bodyParser.urlencoded({extended:false}));//when it false extended, it read all sort of file formats
 app.use(morgon("dev"));//this will log all request to the terminal
+app.use(cors());
 
 app.get("/", (req, res, next)=>{
     res.json({

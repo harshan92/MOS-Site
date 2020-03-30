@@ -1,6 +1,8 @@
 const mongoose=require("mongoose");
 const Schema=mongoose.Schema;
 
+const bcrypt=require("bcrypt-nodejs");
+
 const UserSchema=new Schema({
     email:{type:String, unique:true, lowercase:true},
     username:String,
@@ -18,4 +20,16 @@ const UserSchema=new Schema({
         postalCode:String
     },
     created_at:{type:Date, default:Date.now}
+});
+
+//hash password before save the user
+UserSchema.pre('save', function(next){
+    var user=this;
+    if(!user.isModified("password")) return next();
+
+    bcrypt.hash(user.password,nukk,null, function(err, hash){
+        if(err) return next(err);
+        user.password=hash;
+        return next();
+    });
 });

@@ -2,6 +2,7 @@ const mongoose=require("mongoose");
 const Schema=mongoose.Schema;
 
 const bcrypt=require("bcrypt-nodejs");
+const crypto=require("crypto");
 
 const UserSchema=new Schema({
     email:{type:String, unique:true, lowercase:true},
@@ -33,3 +34,14 @@ UserSchema.pre('save', function(next){
         return next();
     });
 });
+
+//password comparision method
+UserSchema.methods.comparePassword=function(password){
+    return bcrypt.compareSync(password, this.password);
+}
+
+UserSchema.methods.gravatar=function(size){
+    if(!this.size) size=200;
+    if(!this.email) return 'https://gravatar.com/avatar/?s'+size+"&d=retro";
+    var md5=crypto()
+}

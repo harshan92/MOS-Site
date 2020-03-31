@@ -22,11 +22,8 @@ app.use(bodyParser.urlencoded({extended:false}));//when it false extended, it re
 app.use(morgon("dev"));//this will log all request to the terminal
 app.use(cors());
 
-app.get("/", (req, res, next)=>{
-    res.json({
-        "message":"Hello World!"
-    });
-});
+const userRoutes=require("./routes/accounts");
+app.use("/api/accounts", userRoutes);
 
 app.listen(3030, err=>{
     console.log("Server is running.. port: "+config.port);

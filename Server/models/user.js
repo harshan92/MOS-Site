@@ -10,7 +10,7 @@ const UserSchema=new Schema({
     first_name:String,
     last_name:String,
     password:String,
-    picture:String,
+    photo:String,
     isSeller:{type:Boolean, default:false},
     address:{
         addr1:String,
@@ -40,8 +40,12 @@ UserSchema.methods.comparePassword=function(password){
     return bcrypt.compareSync(password, this.password);
 }
 
+//generate the avater image
 UserSchema.methods.gravatar=function(size){
     if(!this.size) size=200;
     if(!this.email) return 'https://gravatar.com/avatar/?s'+size+"&d=retro";
-    var md5=crypto()
+    var md5=crypto.createHash("md5").update(this.email).digest("hex");
+    return 'https://gravatar.com/avatar/'+md5+'?s'+size+"&d=retro"; 
 }
+
+module.exports=mongoose.model("User", UserSchema);

@@ -28,17 +28,22 @@ UserSchema.pre('save', function(next){
     var user=this;
     if(!user.isModified("password")) return next();
 
-    bcrypt.hash(user.password,nukk,null, function(err, hash){
+    bcrypt.hash(user.password,null,null, function(err, hash){
         if(err) return next(err);
         user.password=hash;
-        return next();
+        next();
     });
 });
 
 //password comparision method
-UserSchema.methods.comparePassword=function(password){
-    return bcrypt.compareSync(password, this.password);
-}
+UserSchema.methods.comparePassword = function(password) {
+    if(this.password != null) {
+        return bcrypt.compareSync(password, this.password);
+    }else{
+        return false;
+    }
+};
+
 
 //generate the avater image
 UserSchema.methods.gravatar=function(size){

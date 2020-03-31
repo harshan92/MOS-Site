@@ -11,6 +11,7 @@ router.post("/signup", (req, res, next)=>{
     user.first_name=req.body.first_name;
     user.last_name=req.body.last_name;
     user.email=req.body.email;
+    user.password=req.body.password;
     user.photo=user.gravatar();
     user.isSeller=req.body.isSeller;
 
@@ -38,4 +39,36 @@ router.post("/signup", (req, res, next)=>{
     })
 });
 
+router.post("/signin", (req, res, next)=>{
+    User.findOne({ email:req.body.email}, (err, user)=>{
+        if(err) throw err;
+
+        if(!user){
+            res.json({
+                success:false,
+                message:"Authentication failed, user not found"
+            });
+        }else if(user){
+            var validPassword=user.comparePassword(req.body.password);
+            if(!validPassword){
+                res.json({
+                    success:false,
+                    message:"Authentication failed, wrong password"
+                });
+            }else{
+                var token=jwt.sign({
+                    user:user
+                }, config.secret, {
+                    expiresIn:"7d"
+                });
+    
+                res.json({
+                    success:true,
+                    message:"Enjoy your token",
+                    token:token
+                });
+            }
+        }
+    })
+});
 module.exports=router;

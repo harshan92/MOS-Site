@@ -9,12 +9,15 @@ import {HttpClientModule} from "@angular/common/http";
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 import { RegistrationComponent } from './registration/registration.component';
-import { from } from 'rxjs';
+
+import { HomeComponent } from './home/home.component';
+import {RestApiService} from './rest-api.service'
 
 @NgModule({
   declarations: [
     AppComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -23,7 +26,7 @@ import { from } from 'rxjs';
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [RestApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

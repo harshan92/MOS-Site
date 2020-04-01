@@ -11,13 +11,16 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import { RegistrationComponent } from './registration/registration.component';
 
 import { HomeComponent } from './home/home.component';
-import {RestApiService} from './rest-api.service'
+import {RestApiService} from './rest-api.service';
+import { MessageComponent } from './message/message.component'
+import {DataService} from './data.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegistrationComponent,
-    HomeComponent
+    HomeComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +29,7 @@ import {RestApiService} from './rest-api.service'
     FormsModule,
     HttpClientModule
   ],
-  providers: [RestApiService],
+  providers: [RestApiService, DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

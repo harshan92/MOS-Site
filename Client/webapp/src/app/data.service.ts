@@ -6,8 +6,9 @@ import {NavigationStart, Router} from '@angular/router';
 })
 export class DataService {
   message='';
-  messageType='';
+  messageType='danger';
   user:any;
+  
   constructor(private router:Router) { 
     this.router.events.subscribe(event=>{
       if(event instanceof NavigationStart){

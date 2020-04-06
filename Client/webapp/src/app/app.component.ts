@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   searchTerm='';
-  isCollapse=true;
+  isCollapsed=true;
 
   constructor(private router:Router, private data:DataService){
   }
@@ -19,14 +19,17 @@ export class AppComponent {
   }
 
   collapse(){
-    this.isCollapse=true;
+    this.isCollapsed=true;
   }
 
   closeDropdown(dropdown){
     dropdown.close();
   }
 
-  logout(){}
+  logout(){
+    localStorage.clear();
+    this.router.navigate(['']);
+  }
 
   search(){}
 }

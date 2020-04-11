@@ -9,7 +9,7 @@
     <div [ngbCollapse]="isCollapsed" style="align-items: left; margin-left: 50px;" class="collapse navbar-collapse flex-column" id="navbarNav">
       <div class="input-group w-75">
         <input type="text" name="search" class="form-control" [(ngModel)]="searchTerm" (keyup.enter)="search()">
-        <span id="sarchBtn" class="bg-warning" (click)="search()">
+        <span id="searchBtn" class="bg-warning" (click)="search()">
           <i class="fa fa-search"></i>
         </span>
       </div>
@@ -21,26 +21,26 @@
           <li class="nav-item ml-0 ml-md-auto" ngbDropdown #dropdown="ngbDropdown">
             <a class="nav-link dropdown-toggle" ngbDropdownToggle>
               <i class="fa fa-user mr-1"></i>
-              <span *ngIf="!token">Account</span>
+              <span *ngIf="!token">Accounts</span>
             </a>
             <div ngbDropdownMenu class="dropdown-menu">
               <a *ngIf="token" (click)="closeDropdown(dropdown);collapse();" routerLink="/profile" class="dropdown-item">
                 <i class="fa fa-user-circle" aria-hidden="true"></i> Profile
               </a>
-              <a *ngIf="token" (click)="closeDropdown(dropdown);collapse();" routerLink="/login" class="dropdown-item">
+              <a *ngIf="!token" (click)="closeDropdown(dropdown);collapse();" routerLink="/login" class="dropdown-item">
                 <i class="fa fa-key" aria-hidden="true"></i> Login
               </a>
               <a *ngIf="token" (click)="closeDropdown(dropdown);collapse();" routerLink="/logout" class="dropdown-item">
                 <i class="fa fa-key" aria-hidden="true"></i> Logout
               </a>
-              <a *ngIf="token" (click)="closeDropdown(dropdown);collapse();" routerLink="/register" class="dropdown-item">
+              <a *ngIf="!token" (click)="closeDropdown(dropdown);collapse();" routerLink="/register" class="dropdown-item">
                 <i class="fa fa-group" aria-hidden="true"></i> Register
               </a>
             </div>
           </li>
           <li class="nav-item ml-0 ml-md-2">
             <a (click)="collapse()" routerLink="./cart" routerLinkActive="active" class="nav-link">
-              <i class="fa fa-shpping-cart mr-1"></i>
+              <i class="fa fa-shopping-cart mr-1"></i>
             </a>
           </li>
         </ul>
@@ -52,7 +52,7 @@
 
 <router-outlet></router-outlet>
 
-<footer id="main-footer" class="bg-main text-white mt-5 p-5">
+<footer id="main-footer" class="bg-main text-white mt-5 p-5 bg-dark">
   <div class="container">
     <div class="lead text-center">Copyrigths &copy; 2020 MOS</div>
   </div>

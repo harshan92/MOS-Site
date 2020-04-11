@@ -8,19 +8,24 @@ import {HttpClientModule} from "@angular/common/http";
 
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
-import { RegistrationComponent } from './registration/registration.component';
+
+
+import {RestApiService} from './rest-api.service';
+import {DataService} from './data.service';
+import {AuthGuardService} from './auth-guard.service'
 
 import { HomeComponent } from './home/home.component';
-import {RestApiService} from './rest-api.service';
 import { MessageComponent } from './message/message.component'
-import {DataService} from './data.service';
+import { LoginComponent } from './login/login.component';
+import { RegistrationComponent } from './registration/registration.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegistrationComponent,
     HomeComponent,
-    MessageComponent
+    MessageComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +34,7 @@ import {DataService} from './data.service';
     FormsModule,
     HttpClientModule
   ],
-  providers: [RestApiService, DataService],
+  providers: [RestApiService, DataService, AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-main">
+<nav class="navbar navbar-expand-md navbar-dark bg-dark bg-main">
   <div class="container-fluid">
     <a routerLink="/" class="navbar-brand">
       <img src="./assets/img/logo.png" alt="logo" id="logo"/>MOS
@@ -10,7 +10,7 @@
       <div class="input-group w-75">
         <input type="text" name="search" class="form-control" [(ngModel)]="searchTerm" (keyup.enter)="search()">
         <span id="sarchBtn" class="bg-warning" (click)="search()">
-          <i class="fa-search"></i>
+          <i class="fa fa-search"></i>
         </span>
       </div>
       <div class="w-100">

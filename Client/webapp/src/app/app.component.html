@@ -30,7 +30,7 @@
               <a *ngIf="!token" (click)="closeDropdown(dropdown);collapse();" routerLink="/login" class="dropdown-item">
                 <i class="fa fa-key" aria-hidden="true"></i> Login
               </a>
-              <a *ngIf="token" (click)="closeDropdown(dropdown);collapse();" routerLink="/logout" class="dropdown-item">
+              <a *ngIf="token" (click)="closeDropdown(dropdown);collapse();logout();"  class="dropdown-item">
                 <i class="fa fa-key" aria-hidden="true"></i> Logout
               </a>
               <a *ngIf="!token" (click)="closeDropdown(dropdown);collapse();" routerLink="/register" class="dropdown-item">

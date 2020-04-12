@@ -1,0 +1,41 @@
+<section id="settings">
+    <div class="container p-5">
+        <h4 class="display-4">My Accounts Settings</h4>
+        <hr>
+        <app-message></app-message>
+        <div *ngIf="!currentSettings" class="m-auto">
+            <div class="text-center display-3 mt-5">
+                <i class="fa fa-spinner fa-spin"></i>
+            </div>
+        </div>
+        <div *ngIf="currentSettings" class="card bg-light">
+            <form>
+                <div class="form-group">
+                    <label for="first_name" class="form-control-label">First Name</label>
+                    <input type="text" name="first_name" class="form-control" [(ngModel)]="currentSettings.first_name">
+                </div>
+                <div class="form-group">
+                    <label for="last_name" class="form-control-label">Last Name</label>
+                    <input type="text" name="last_name" class="form-control" [(ngModel)]="currentSettings.last_name">
+                </div>
+                <div class="form-group">
+                    <label for="email" class="form-control-label">Email</label>
+                    <input type="email" name="email" class="form-control" [(ngModel)]="currentSettings.email">
+                </div>
+                <div class="form-check">
+                    <label for="isSeller" class="form-check-label">
+                        <input type="checkbox" name="isSeller" class="form-check-input" id="isSeller" [(ngModel)]="currentSettings.isSeller"> Is Seller
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="form-control-label">New Password</label>
+                    <input type="password" name="password" class="form-control" [(ngModel)]="currentSettings.newPwd">
+                </div>
+                <div class="form-group">
+                    <label for="password" class="form-control-label">Confirm Password</label>
+                    <input type="password" name="pwdConfirm" class="form-control" [(ngModel)]="currentSettings.pwdConfirm">
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

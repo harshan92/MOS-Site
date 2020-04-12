@@ -84,5 +84,22 @@ router.route("/profile")
             })
         })
     })
-    .post();
+    .post(checkJWT, (req, res, next)=>{
+        User.findOne({_id:req.decoded.user._id}, (err,user)=>{
+            if(err) return next(err);
+            if(req.body.first_name) user.first_name=req.body.first_name;
+            if(req.body.last_name) user.last_name=req.body.last_name;
+            if(req.body.email) user.email=req.body.email;
+            if(req.body.password) user.password=req.body.password;
+
+            user.isSeller=req.body.isSeller;
+
+            user.save();
+
+            res.json({
+                success:true,
+                message:"Successfully updated your profile"
+            })
+        })
+    });
 module.exports=router;

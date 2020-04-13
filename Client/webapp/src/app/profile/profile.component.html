@@ -13,13 +13,13 @@
             </div>
             <div class="col-md-8 ml-3">
                 <p id="name" class="lead">{{data.user.first_name}} {{data.user.last_name}}</p>
-                <a routerLink="profile/orders" class="btn btn-warning">My Orders</a>
+                <a routerLink="./orders" class="btn btn-warning">My Orders</a>
                 <br>
                 <br>
-                <a routerLink="profile/settings" class="btn btn-warning">Change Account Settings</a>
+                <a routerLink="./settings" class="btn btn-warning">Change Account Settings</a>
                 <br>
                 <br>
-                <a routerLink="profile/address" class="btn btn-warning">Change Shopping Address</a>
+                <a routerLink="./address" class="btn btn-warning">Change Shopping Address</a>
                 <br>
                 <br>
                 <div *ngIf="data.user.isSeller">

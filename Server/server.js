@@ -22,7 +22,10 @@ app.use(bodyParser.urlencoded({extended:false}));//when it false extended, it re
 app.use(morgon("dev"));//this will log all request to the terminal
 app.use(cors());
 
+const mainRoutes=require("./routes/main");
 const userRoutes=require("./routes/accounts");
+
+app.use("/api", mainRoutes);
 app.use("/api/accounts", userRoutes);
 
 app.listen(3030, err=>{

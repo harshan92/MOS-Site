@@ -4,7 +4,10 @@ const multer=require("multer");
 
 const checkJWT=require("../middlewares/check-jwt");
 
+const faker=require('faker');
+
 var upload = multer({ dest: 'uploads/' });
+
 router.route("/products")
 .get(checkJWT, (req, res, next)=>{
     Product.find({owner:req.decoded.user._id})
@@ -34,4 +37,21 @@ router.route("/products")
         message:"Successfully added the product"
     })
 });
+
+//to generate testing data
+router.get("/faker/test", (req, res, next)=>{
+    for(var i=0;i<20;i++){
+        let product=new Product();
+        product.categoryId="5e956cf35852cd321831fb8d";
+        product.owner="5e92adaabd68e0227068eb8d";
+        product.image=faker.image.cats();
+        product.title=faker.commerce.productName();
+        product.description=faker.lorem.words();
+        product.price=faker.commerce.price();
+        product.save();
+    }
+    res.json({
+        message:"Successfully added 20 pictures."
+    })
+})
 module.exports=router;

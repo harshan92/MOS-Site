@@ -42,9 +42,9 @@ router.route("/products")
 router.get("/faker/test", (req, res, next)=>{
     for(var i=0;i<20;i++){
         let product=new Product();
-        product.categoryId="5e956cf35852cd321831fb8d";
+        product.category="5e94628447c0270bf0d90a53";
         product.owner="5e92adaabd68e0227068eb8d";
-        product.image=faker.image.cats();
+        product.image=faker.image.animals();
         product.title=faker.commerce.productName();
         product.description=faker.lorem.words();
         product.price=faker.commerce.price();

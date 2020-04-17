@@ -47,6 +47,29 @@ router.get('/categories/:id', (req, res, next)=>{
                 var totalProducts=count;
                 callback(err, totalProducts);
             })
+        },
+        function(totalProducts, callback){
+            Product.find({category:req.params.id})
+            .skip(perPage*page)
+            .limit(perPage)
+            .populate("category")
+            .populate("owner")
+            .exec((err, products)=>{
+                if(err) return next(err);
+                callback(err, products, totalProducts);
+            })
+        },
+        function(products, totalProducts, callback){
+            Category.findOne({_id:req.params.id},(err, category)=>{
+                res.json({
+                    success:true,
+                    message:"category",
+                    products:products,
+                    categoryName:category.name,
+                    totalProducts:totalProducts,
+                    page:Math.ceil(totalProducts/perPage)
+                });
+            })
         }
     ])
 });

@@ -17,6 +17,41 @@ router.get("/test1", (req, res, next)=>{
     async.waterfall([first, second]);
 })
 
+router.get('/products', (req, res, next)=>{
+    const perPage=10;
+    const page=req.query.page;
+    async.parallel([
+        function(callback){
+            Product.count({}, (err, count)=>{
+                var totalProducts=count;
+                callback(err, totalProducts);
+            })
+        },
+        function(callback){
+            Product.find({})
+            .skip(perPage*page)
+            .limit(perPage)
+            .populate("category")
+            .populate("owner")
+            .exec((err, products)=>{
+                if(err) return next(err);
+                callback(err, products);
+            })
+        }
+    ], function(err, result){
+        var totalProducts=result[0];
+        var products=result[1];
+        
+        res.json({
+            success:true,
+            message:"category",
+            products:products,
+            totalProducts:totalProducts,
+            page: Math.ceil(totalProducts/perPage)
+        });
+    })
+});
+
 router.route('/categories')
 .get((req, res, next)=>{
     Category.find({},(err, categories)=>{

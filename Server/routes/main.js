@@ -41,14 +41,14 @@ router.route('/categories')
 router.get('/categories/:id', (req, res, next)=>{
     const perPage=10;
     const page=req.query.page;
-    async.waterfall([
+    async.parallel([
         function(callback){
             Product.count({category:req.params.id}, (err, count)=>{
                 var totalProducts=count;
                 callback(err, totalProducts);
             })
         },
-        function(totalProducts, callback){
+        function(callback){
             Product.find({category:req.params.id})
             .skip(perPage*page)
             .limit(perPage)
@@ -56,22 +56,27 @@ router.get('/categories/:id', (req, res, next)=>{
             .populate("owner")
             .exec((err, products)=>{
                 if(err) return next(err);
-                callback(err, products, totalProducts);
+                callback(err, products);
             })
         },
-        function(products, totalProducts, callback){
+        function(callback){
             Category.findOne({_id:req.params.id},(err, category)=>{
-                res.json({
-                    success:true,
-                    message:"category",
-                    products:products,
-                    categoryName:category.name,
-                    totalProducts:totalProducts,
-                    page:Math.ceil(totalProducts/perPage)
-                });
+                callback(err, category);
             })
         }
-    ])
+    ], function(err, result){
+        var totalProducts=result[0];
+        var products=result[1];
+        var category=result[2];
+        res.json({
+            success:true,
+            message:"category",
+            products:products,
+            categoryName:category.name,
+            totalProducts:totalProducts,
+            page: Math.ceil(totalProducts/perPage)
+        });
+    })
 });
 
 module.exports=router;

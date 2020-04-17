@@ -1,6 +1,21 @@
 const router=require('express').Router();
+const async=require("async");
 const Category=require('../models/category');
 const Product=require('../models/product');
+
+router.get("/test1", (req, res, next)=>{
+    function first(callback){
+        var firstName="Harshan";
+        callback(null, firstName);
+    }
+
+    function second(firstName, callback){
+        var lastName="Madhuranga";
+        console.log(`${firstName} ${lastName}`);
+    }
+
+    async.waterfall([first, second]);
+})
 
 router.route('/categories')
 .get((req, res, next)=>{

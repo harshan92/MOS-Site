@@ -24,6 +24,8 @@ router.route("/products")
     })
 })
 .post([checkJWT, upload.single("product_pictures")], (req, res, next)=>{
+    console.log(upload);
+    console.log(req.file);
     let product=new Product();
     product.owner=req.decoded.user._id;
     product.category=req.body.categoryId;
@@ -31,6 +33,7 @@ router.route("/products")
     product.price=req.body.price;
     product.description=req.body.description;
     product.image=req.file.path;
+    console.log(product);
     product.save();
     res.json({
         success:true,

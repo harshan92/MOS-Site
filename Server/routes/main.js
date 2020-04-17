@@ -79,4 +79,25 @@ router.get('/categories/:id', (req, res, next)=>{
     })
 });
 
+router.get('/product/:id', (req, res, next)=>{
+    Product.findById({_id:req.params.id})
+    .populate("category")
+    .populate("owner")
+    .exec((err, product)=>{
+        if(err){
+            res.json({
+                success:false,
+                message:"Product is not found"
+            })
+        }else{
+            if(product){
+                res.json({
+                    success:true,
+                    product:product
+                })
+            }
+        }
+    })
+})
+
 module.exports=router;

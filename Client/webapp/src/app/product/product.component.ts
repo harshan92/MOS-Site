@@ -25,7 +25,9 @@ export class ProductComponent implements OnInit {
     this.activatedRoute.params.subscribe(res=>{
       this.rest.get(`http://localhost:3030/api/product/${res['id']}`)
       .then(data=>{
+        console.log(data['product']);
         data["success"]?(this.product=data['product']):this.router.navigate(['/']);
+        
       })
       .catch(error=> this.data.error(error['message']))
     })

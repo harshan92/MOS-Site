@@ -36,6 +36,7 @@ export class CategoryComponent implements OnInit {
       const data=await this.rest.get(
         `http://localhost:3030/api/categories/${this.categoryId}?page=${this.page-1}`
       );
+      console.log(data);
       data['success']?(this.category=data):this.data.error(data["message"]);
     } catch (error) {
       this.data.error(error["message"]);

@@ -138,13 +138,13 @@ router.get('/product/:id', (req, res, next)=>{
     })
 })
 
-router.post('/review', (req, res, next)=>{
+router.post('/review', checkJWT, (req, res, next)=>{
     async.waterfall([
         function(callback){
             Product.findOne({_id:req.body.productId}, (err, product)=>{
                 if(product)
                     callback(err, product)
-            })
+            });
         },
         function(product){
             let review=new Review();

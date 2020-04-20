@@ -7,7 +7,6 @@ const index=client.initIndex('MOS1');
 router.get('/',(req, res, next)=>{
     if(req.query.query){
         console.log(req.query.query);
-
         // with params
         index.search(req.query.query, {
             // attributesToRetrieve: ['title', 'description'],

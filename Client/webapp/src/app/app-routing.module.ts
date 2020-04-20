@@ -13,6 +13,7 @@ import {CategoryComponent} from './category/category.component';
 import { ProductComponent } from './product/product.component';
 
 import {AuthGuardService} from './auth-guard.service';
+import { SearchComponent } from './search/search.component';
 
 const routes: Routes = [
   {
@@ -65,6 +66,10 @@ const routes: Routes = [
   {
     path:'product/:id',
     component:ProductComponent
+  },
+  {
+    path:'search',
+    component:SearchComponent
   },
   {
     path:"**",

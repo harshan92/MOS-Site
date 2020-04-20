@@ -167,3 +167,8 @@ router.post('/review', checkJWT, (req, res, next)=>{
     ])
 });
 module.exports=router;
+
+//14 day trial api keys
+//42DY0KCLMP
+//f24f7e3d803c4fb2a069ceba224465c8
+//3573f0cd76a234eb84d9aa5b9c853f70

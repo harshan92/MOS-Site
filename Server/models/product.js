@@ -41,7 +41,7 @@ ProductSchema.plugin(mongooseAlgolia,{
     selector: '_id title image reviews description price owner created', //You can decide which field that are getting synced to Algolia (same as selector in mongoose)
     populate: {
       path: 'owner reviews',
-      select: 'name rating',
+      select: 'first_name rating',
     },
     defaults: {
       author: 'unknown',

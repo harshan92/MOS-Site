@@ -25,10 +25,12 @@ app.use(cors());
 const mainRoutes=require("./routes/main");
 const userRoutes=require("./routes/accounts");
 const sellerRoutes=require("./routes/seller");
+const productSearchRouter=require("./routes/product-search");
 
 app.use("/api", mainRoutes);
 app.use("/api/accounts", userRoutes);
 app.use("/api/seller", sellerRoutes);
+app.use("/api/search", productSearchRouter);
 
 app.listen(3030, err=>{
     console.log("Server is running.. port: "+config.port);

@@ -51,20 +51,20 @@ ProductSchema.plugin(mongooseAlgolia,{
         return `${value}`
       },
     },
-    virtuals: {
-        averageRating:function(doc){
-            var rating=0;
-            if(doc.reviews.length==0){
-                rating=0;
-            }else{
-                doc.reviews.map((review)=>{
-                    rating+=review.rating;
-                });
-                rating=rating/doc.reviews.length
-            }
-            return rating;
-        }
-    },
+    // virtuals: {
+    //     averageRating:function(doc){
+    //         var rating=0;
+    //         if(doc.reviews.length==0){
+    //             rating=0;
+    //         }else{
+    //             doc.reviews.map((review)=>{
+    //                 rating+=review.rating;
+    //             });
+    //             rating=rating/doc.reviews.length
+    //         }
+    //         return rating;
+    //     }
+    // },
     
     debug: true, // Default: false -> If true operations are logged out in your console
   });

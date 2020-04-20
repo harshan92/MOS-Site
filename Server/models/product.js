@@ -2,6 +2,7 @@ const mongoose=require("mongoose");
 const Schema=mongoose.Schema;
 
 const deepPopulate=require("mongoose-deep-populate")(mongoose);
+const mongooseAlgolia=require('mongoose-algolia');
 
 const ProductSchema=new Schema({
     category: {type:Schema.Types.ObjectId, ref:'Category'},
@@ -33,5 +34,44 @@ ProductSchema
     });
 
 ProductSchema.plugin(deepPopulate);
+ProductSchema.plugin(mongooseAlgolia,{
+    appId: '42DY0KCLMP',
+    apiKey: '3573f0cd76a234eb84d9aa5b9c853f70',
+    indexName: 'MOS1', //The name of the index in Algolia, you can also pass in a function
+    selector: '_id title image reviews description price owner created', //You can decide which field that are getting synced to Algolia (same as selector in mongoose)
+    populate: {
+      path: 'owner reviews',
+      select: 'name rating',
+    },
+    defaults: {
+      author: 'unknown',
+    },
+    mappings: {
+      title: function(value) {
+        return `${value}`
+      },
+    },
+    virtuals: {
+        averageRating:function(doc){
+            var rating=0;
+            if(doc.reviews.length==0){
+                rating=0;
+            }else{
+                doc.reviews.map((review)=>{
+                    rating+=review.rating;
+                });
+                rating=rating/doc.reviews.length
+            }
+            return rating;
+        }
+    },
+    
+    debug: true, // Default: false -> If true operations are logged out in your console
+  });
 
-module.exports=mongoose.model("Product", ProductSchema);
+let Model=mongoose.model("Product", ProductSchema);
+Model.SyncToAlgolia() //Clears the Algolia index for this schema and synchronizes all documents to Algolia (based on the settings defined in your plugin settings)
+Model.SetAlgoliaSettings({
+    searchableAttributes:['title']
+});
+module.exports=Model;
